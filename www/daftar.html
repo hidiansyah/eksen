@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js"></script>
+  <script src="js/cssua.min.js"></script>
+  
+ 
+</head>
+<body>
+
+  
+  <!-- Register Page -->
+    <script>
+    			$(document).on('submit','form',function(e){
+				
+				e.preventDefault();
+				
+				var postData = $(this).serialize();
+				$.post('https://heteropolar-caniste.000webhostapp.com/android/daftar.php',postData,
+				function myFunction() {
+						alert( "Register Success!" );
+						window.location.assign("");
+					})
+						.fail(function() {
+						alert( "Failed! Try Again..." );		
+					});    
+				return false;
+				});
+        </script>
+  
+  
+    <header data-role="header" data-position="fixed" data-theme="c">
+      <h1>BPBD-SUMSEL</h1>
+    </header>
+      <section data-role="content">
+      <h1>FORM PENDAFTARAN PELAPOR</h1>
+        <form id="register" name="register" method="post">
+            nama
+        <input type="text" name="nama" id="reg_email">
+        alamat
+        <input type="text" name="alamat" id="reg_email">
+        jenis-kelamin
+        <select name="jenis kelamin">
+            <option>------</option>
+            <option vale="laki-laki">laki-laki </option>
+            <option value="perempan">perempan</option>
+        </select>
+        username
+        <input type="text" name="username" id="reg_email">
+        Password:
+        <input type="password" name="password" id="reg_password">
+        <input type="submit" name="submit" value="Simpan" id="RegisterBtn" data-role="button" data-inline="false" data-theme="b">
+        </form>
+        
+        <a href="#LoginPage" id="LoginBtn" data-role="button" data-inline="false" data-theme="b">Login</a>
+      </section>
+  </div>
+  </div>
+</body>
+</html>

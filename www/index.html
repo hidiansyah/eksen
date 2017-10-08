@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js"></script>
+  <script src="js/cssua.min.js"></script>
+  
+  
+   <script type="text/javascript">
+            $.extend({
+                getUrlVars: function(){
+                    var vars = [], hash;
+                    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                    for(var i = 0; i < hashes.length; i++)
+                    {
+                        hash = hashes[i].split('=');
+                        vars.push(hash[0]);
+                        vars[hash[0]] = hash[1];
+                    }
+                    return vars;
+                },
+                getUrlVar: function(username)
+                {
+                    return $.getUrlVars()[username];
+                }
+            });
+        </script>
+
+ 
+</head>
+<body>
+
+  
+
+  <!-- List Page -->
+  <div data-role="page" id="ListPage">
+    <header data-role="header"  data-position="fixed" data-theme="c">
+      <h1>BPBD-SUMSEL </h1> 
+    </header>
+    <table width="225" cellpadding="4" align="center">
+        					
+							<tr>
+                              <td align="center">
+							  <a href="#AddPage"><img src="img/tombol.png"  width="150" height="117"></a>
+							  
+							  <td align="center">
+							  <a href="http://heteropolar-caniste.000webhostapp.com/android/www/informasi2.php"><img src="img/tombol2.png" width="150" height="117"></td></a>
+                            </tr>
+							
+							<tr><td align="center" colspan="2"> <a href="#yesNoDialog_logout"  data-rel="popup" data-position-to="window" data-role="button" data-inline="false" data-transition="pop" data-theme="b">LOGOUT</a>
+                           </td>
+                            </tr>
+							
+                        </table>
+
+     
+    <section data-role="content">
+      <ul id="TopListView" data-role="listview"
+        data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-split-icon="delete">
+      </ul>
+      
+
+      <!--Dialog box confirming logout-->
+      <div data-role="popup" id="yesNoDialog_logout" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+        <div data-role="header" data-theme="c" class="ui-corner-top" style="top: 0 !important;">
+          <h1>Confirmation:</h1>
+        </div>
+        <div align="middle" data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+          <h3 class="ui-title">
+          <p>Are you sure you want to logout?</p>
+          <a href="#" id="YesBtn_logout" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+          <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b">No</a>
+        </div>
+      </div>
+
+      <!--Dialog box confirming delete-->
+      <div data-role="popup" id="yesNoDialog_delete" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+        <div data-role="header" data-theme="c" class="ui-corner-top" data-theme="c" style="top: 0 !important;">
+          <h1>Confirmation:</h1>
+    </div>
+        <div align="middle" data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+          <h3 class="ui-title">
+          <p>Are you sure you want to delete this memo?</p>
+          <a href="#" id="YesBtn_delete" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+          <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b">No</a>
+        </div>
+</div>
+    </section>
+  </div>
+
+
+  <!-- Laporan -->
+  </head>
+  <script>
+      function takePic() {
+        // Menetapkan opsi
+        var options = {
+          destinationType: Camera.DestinationType.FILE_URI };
+
+        // Mengambil gambar dengan pengaturan opsional
+        navigator.camera.getPicture(onCameraSuccess,
+        onCameraError, options);
+      }
+
+
+      function onCameraSuccess(url) {
+        alert("Pengambilan Gambar Berhasil...");
+
+        // Mendapatkan id container
+        var prev = document.getElementById('img_prev');
+        var prev2 = document.getElementById('img_prev2');
+
+        // Menyisipkan gambar ke halaman web
+        prev.innerHTML = '<img src="' + url +
+        '" width="60%" />';
+    	
+		prev2.innerHTML = '<input type="text" value="' + url +
+        '"  name="foto"/>';
+		
+      }
+
+      function onCameraError(e) {
+        navigator.notification.alert("Gagal: " + e);
+      }
+
+    </script>
+	
+    <!-- mengirim ke database-->
+        <script>
+    			$(document).on('submit','form',function(e){
+				
+				e.preventDefault();
+				
+				var postData = $(this).serialize();
+				$.post('https://heteropolar-caniste.000webhostapp.com/android/ambil.php',postData,
+				function myFunction() {
+						alert( "Success!" );
+						window.location.assign("index.html");
+					})
+						.fail(function() {
+						alert( "Failed! Try Again..." );		
+					});    
+				return false;
+				});
+        </script>
+    
+<!-- mencari lokasi-->    
+<script>
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+
+function showPosition(position) {
+
+document.menuregister.hasil11.value=position.coords.latitude;
+document.menuregister.hasil22.value=position.coords.longitude;
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+  !-->  
+  <div data-role="page" id="AddPage">
+    <header data-role="header" data-position="fixed" data-theme="c">
+      <h1>Add Memo</h1>
+    </header>
+    <form id="menuregister" name="menuregister" method="post">
+    <section data-role="content">
+    <input type="button" name="button"  onClick="takePic();" value="Ambil Gambar" />
+    <div id="img_prev"></div>
+    <div id="img_prev2"></div>
+      <label for="title">Judul</label>
+      <input type="text" name="judul" id="title">
+      <label for="Memo">Keterangan</label>
+      <textarea id="content" name="keterangan" style="height: 8em"></textarea>
+       <input type="text" name="hasil11">
+       <input type="text"  name="hasil22">
+       <input type="submit" name="submit" value="Simpan" id="RegisterBtn" data-role="button" data-inline="false" data-theme="b">
+      <a data-role="button" data-theme="b" data-rel="back" data-icon="back">BATAL</a>
+    </form>
+    
+      <!--Dialog box of successful adding-->
+      <div data-role="popup" id="okDialog_add" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+        <div align="middle" data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+          <p>A memo is successfully added!</p>
+          <a href="#" data-role="button" id="OkBtn" data-inline="true" data-transition="flow" data-theme="b">OK</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Detail Page -->
+  <div data-role="page" id="ShowPage">
+    <header data-role="header" data-position="fixed" data-theme="c">
+      <a data-role="button" data-theme="b" data-rel="back" data-icon="back">Back</a>
+      <a href="#" data-theme="b" class="ui-btn-right" id="EditBtn">Edit</a>
+      <h1 id="title_show"></h1>
+    </header>
+    <section data-role="content">
+      <p id="content_show"></p>
+    </section>
+  </div>
+
+   <!-- Edit Memo Page -->
+  <div data-role="page" id="EditPage" data-cache="never">
+    <header data-role="header" data-position="fixed" data-theme="c">
+      <a data-role="button" data-theme="b" data-rel="back" data-icon="back">Back</a>
+      <h1>Edit Memo</h1>
+    </header>
+    <section data-role="content">
+      <label for="title_edit">Title:</label>
+      <input type="text" id="title_edit">
+      <label for="Memo">Memo:</label>
+      <textarea id="content_edit" style="height: 8em"></textarea>
+      <a href="#" data-theme="b" data-role="button" data-icon="check" id="UpdateBtn">Update</a>
+
+     <!--Dialog box of successful updating-->
+      <div data-role="popup" id="okDialog_edit" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+        <div align="middle" data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+          <p>A memo is successfully updated!</p>
+          <a href="#" data-role="button" id="OkBtn" data-inline="true" data-transition="flow" data-theme="b">OK</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js"></script>
+  <script src="js/cssua.min.js"></script>
+  
+ 
+</head>
+<body>
+
+<!-- Laporan -->
+  </head>
+  <script>
+      function takePic() {
+        // Menetapkan opsi
+        var options = {
+          destinationType: Camera.DestinationType.FILE_URI };
+
+        // Mengambil gambar dengan pengaturan opsional
+        navigator.camera.getPicture(cameraSuccess, cameraError, cameraOptions);
+       
+      }
+      
+    // Show image
+        //
+    function cameraCallback(imageData) {
+   var image = document.getElementById('myImage');
+   image.src = "data:image/jpeg;base64," + imageData;
+    }
+    
+    function getFileEntry(imgUri) {
+    window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+
+        // Do something with the FileEntry object, like write to it, upload it, etc.
+        // writeFile(fileEntry, imgUri);
+        console.log("got file: " + fileEntry.fullPath);
+        // displayFileData(fileEntry.nativeURL, "Native URL");
+
+    }, function () {
+      // If don't get the FileEntry (which may happen when testing
+      // on some emulators), copy to a new FileEntry.
+        createNewFileEntry(imgUri);
+    });
+}
+
+        function createNewFileEntry(imgUri) {
+    window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
+
+        // JPEG file
+        dirEntry.getFile("tempFile.jpeg", { create: true, exclusive: false }, function (fileEntry) {
+
+            // Do something with it, like write to it, upload it, etc.
+            // writeFile(fileEntry, imgUri);
+            console.log("got file: " + fileEntry.'https://heteropolar-caniste.000webhostapp.com/foto/gambar');
+            // displayFileData(fileEntry.fullPath, "File copied to");
+
+        }, onErrorCreateFile);
+
+    }, onErrorResolveUrl);
+}
+See Also
+Third-party Cordova 
+
+
+    </script>
+	
+    <!-- mengirim ke database-->
+        <script>
+    			$(document).on('submit','form',function(e){
+				
+				e.preventDefault();
+				
+				var postData = $(this).serialize();
+				$.post('https://heteropolar-caniste.000webhostapp.com/android/ambil.php',postData,
+				function myFunction() {
+						alert( "Success!" );
+						window.location.assign("");
+					})
+						.fail(function() {
+						alert( "Failed! Try Again..." );		
+					});    
+				return false;
+				});
+        </script>
+    
+<!-- mencari lokasi-->    
+<script>
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+
+function showPosition(position) {
+
+document.menuregister.hasil11.value=position.coords.latitude;
+document.menuregister.hasil22.value=position.coords.longitude;
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+  !-->  
+  <div data-role="page" id="AddPage">
+    <header data-role="header" data-position="fixed" data-theme="c">
+      <h1>Add Memo</h1>
+    </header>
+    <form id="menuregister" name="menuregister" method="post">
+    <section data-role="content">
+    <input type="button" name="button"  onClick="takePic();" value="Ambil Gambar" />
+    <div id="img_prev"></div>
+    <div id="img_prev2"></div>
+      <label for="title">Judul</label>
+      <input type="text" name="judul" id="title">
+      <label for="Memo">Keterangan</label>
+      <textarea id="content" name="keterangan" style="height: 8em"></textarea>
+       <input type="text" name="hasil11">
+       <input type="text"  name="hasil22">
+       <input type="submit" name="submit" value="Simpan"  data-role="button" data-inline="false" data-theme="b">
+      <a data-role="button" data-theme="b" data-rel="back" data-icon="back">BATAL</a>
+    </form>
+    </div>
+</body>
+</html>
